@@ -1,0 +1,168 @@
+/* ===========================
+   Tsapachules to Map the City
+   =========================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Inter, Arial, sans-serif;
+    background: #f7f2ff;
+    color: #1e293b;
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.logo h1 {
+    font-size: 2rem;
+    color: #5b21b6;
+    margin-bottom: 8px;
+}
+
+.logo p {
+    color: #7c3aed;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #c026d3;
+    box-shadow: 0 0 0 4px rgba(192, 38, 211, 0.15);
+}
+
+textarea {
+    resize: vertical;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(
+        135deg,
+        #9333ea,
+        #ec4899
+    );
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: linear-gradient(
+        135deg,
+        #9333ea,
+        #ec4899
+    );
+}
+
+
+#submitButton {
+    background: #5b21b6;
+    padding: 16px;
+    margin-top: 20px;  /* space above */
+}
+
+#submitButton:hover {
+    background: #4c1d95;
+}
+
+.location-button {
+    margin-top: 24px;
+    margin-bottom: 24px;
+
+    display: block;
+    margin: 32px auto;
+
+    width: fit-content;
+    padding: 8px 12px;
+
+    border: 1px solid #c4b5fd;
+    border-radius: 8px;
+
+    background: transparent;
+    color: #6d28d9;
+
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.location-button:hover {
+    background: #faf5ff;
+}
+
+.location-button:focus-visible {
+    outline: 3px solid rgba(192, 38, 211, 0.25);
+    outline-offset: 2px;
+}
+
+.info-box {
+    background: #faf5ff;
+    border-left: 4px solid #c026d3;
+    padding: 16px;
+    margin-bottom: 24px;
+    border-radius: 8px;
+}
+
+.footer-note {
+    margin-top: 20px;
+    text-align: center;
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+.required {
+    color: #dc2626;
+}
+
+#map {
+    height: 400px;
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    margin-top: 10px;
+}
