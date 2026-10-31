@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tsapachules to Map the City</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css"/>
+</head>
+<body>
+<div class="container">
+
+    <div class="card">
+
+        <div class="logo">
+            <h1>tsapachules mapping the city</h1>
+            <p>Report incidents safely and anonymously</p>
+        </div>
+
+        <div class="info-box">
+            Reports are collected for mapping and analysis.
+            Personal information is not required.
+    </div>
+    <main>
+        <!-- <h1>Incident Form</h1> -->
+        <form id="incidentForm">
+            <section class="map-section" aria-labelledby="map-label">
+                <label id="map-label">Select Incident Location</label>
+                <p class="map-help">Search for a place or click the map to set the incident location.</p>
+                <div id="map"></div>
+                <p id="mapStatus" role="status" aria-live="polite"></p>
+            <button class="location-button" type="button" onclick="getLocation()">
+                    📍 Use Current Location
+                </button>
+            </section>
+
+            <input type="hidden" id="latitude" name="latitude">
+            <input type="hidden" id="longitude" name="longitude">
+
+            <div class="field">
+                <label for="incident_summary">What happened?</label>
+                <textarea
+                    id="incident_summary"
+                    name="incident_summary"
+                    rows="5"
+                    placeholder="Provide a brief description of the incident..."
+                ></textarea>
+                <!--<input id="incident_summary" name="incident_summary">> -->
+            </div>
+
+            <div class="field">
+                <label for="incident_date">Incident date</label>
+                <input id="incident_date" name="incident_date" type="date">
+            </div>
+
+            <div class="field">
+                <label for="location">Location</label>
+                <input
+                id="location"
+                name="location"
+                list="location-options"
+                placeholder="Search or enter a location"
+                autocomplete="off"
+                >
+                <datalist id="location-options">
+                    <option value="Αμπελόκηποι">
+                    <option value="Eξάρχεια">
+                    <option value="Γκάζι">
+                    <option value="Κολωνάκι">
+                    <option value="Κουκάκι">
+                    <option value="Kυψέλη">
+                    <option value="Μεταξουργείο">
+                    <option value="Μοναστηράκι">
+                    <option value="Νέος Κόσμος">
+                    <option value="Ομόνοια">
+                    <option value="Παγκράτι">
+                    <option value="Πατήσια">
+                    <option value="Πετράλωνα">
+                    <option value="Σύνταγμα">
+                    <option value="Θησείο">
+                </datalist>
+            </div>
+
+            <div class="field">
+                <label for="address">Address</label>
+                <input id="address" name="address">
+            </div>
+
+            <div class="field">
+                <label for="number">Number</label>
+                <input id="number" name="number">
+            </div>
+
+            <div class="field">
+                <label for="tax_code">Postcode</label>
+                <input id="tax_code" name="tax_code">
+            </div>
+
+            <button id="submitButton" type="submit">Save Incident</button>
+            <p id="status" role="status" aria-live="polite"></p>
+        </form>
+        <div class="footer-note">
+            Community incident reporting platform
+        </div>
+    </main>
+
+    <script>
+        const SUPABASE_URL = "https://qcxoupygmymoyhzeducm.supabase.co";
+        const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_gymnrgX3xFeqpV5ctnj2NQ_6awAp65w";
+        const form = document.getElementById("incidentForm");
+        const submitButton = document.getElementById("submitButton");
+        const status = document.getElementById("status");
+
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            submitButton.disabled = true;
+            status.textContent = "Saving...";
+
+            const formData = new FormData(form);
+            const payload = Object.fromEntries(formData.entries());
+            payload.latitude = payload.latitude || null;
+            payload.longitude = payload.longitude || null;
+
+            try {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/incidents`, {
+                    method: "POST",
+                    headers: {
+                        apikey: SUPABASE_PUBLISHABLE_KEY,
+                        Authorization: `Bearer ${SUPABASE_PUBLISHABLE_KEY}`,
+                        "Content-Type": "application/json",
+                        Prefer: "return=minimal"
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    const details = await response.text();
+                    throw new Error(`Supabase returned ${response.status}: ${details}`);
+                }
+
+                status.textContent = "Incident saved!";
+                form.reset();
+                clearIncidentLocation();
+            } catch (error) {
+                console.error("Could not save incident:", error);
+                status.textContent = error instanceof Error
+                    ? `Could not save incident: ${error.message}`
+                    : "Could not save incident. Check the browser console for details.";
+            } finally {
+                submitButton.disabled = false;
+            }
+        });
+        </script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
