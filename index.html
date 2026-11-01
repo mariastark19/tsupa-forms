@@ -24,83 +24,95 @@
         </div>
     <main>
         <!-- <h1>Incident Form</h1> -->
-        <form id="incidentForm">
-            <section class="map-section" aria-labelledby="map-label">
-                <label id="map-label">Select Incident Location</label>
-                <p class="map-help">Search for a place or click the map to set the incident location.</p>
-                <div id="map"></div>
-                <p id="mapStatus" role="status" aria-live="polite"></p>
-            <button class="location-button" type="button" onclick="getLocation()">
-                    📍 Use Current Location
-                </button>
-            </section>
+        <section class="map-section" aria-labelledby="map-label">
 
-            <input type="hidden" id="latitude" name="latitude">
-            <input type="hidden" id="longitude" name="longitude">
+        <div class="location-header">
+            <label id="map-label">Select Incident Location</label>
 
-            <div class="field">
-                <label for="incident_summary">What happened?</label>
-                <textarea
-                    id="incident_summary"
-                    name="incident_summary"
-                    rows="5"
-                    placeholder="Provide a brief description of the incident..."
-                ></textarea>
-                <!--<input id="incident_summary" name="incident_summary">> -->
+            <div class="info-tooltip">
+                ℹ️
+                <span class="tooltip-text">
+                    Search for a place or click the map to set the incident location.
+                </span>
+            </div>
+        </div>
+
+        <div id="map"></div>
+
+        <p id="mapStatus" role="status" aria-live="polite"></p>
+
+        <button class="location-button" type="button" onclick="getLocation()">
+            📍 Use Current Location
+        </button>
+
+        </section>
+
+        <input type="hidden" id="latitude" name="latitude">
+        <input type="hidden" id="longitude" name="longitude">
+
+        <div class="field">
+            <label for="incident_summary">What happened?</label>
+            <textarea
+                id="incident_summary"
+                name="incident_summary"
+                rows="5"
+                placeholder="Provide a brief description of the incident..."
+            ></textarea>
+            <!--<input id="incident_summary" name="incident_summary">> -->
+        </div>
+
+        <div class="field">
+            <label for="incident_date">Incident date</label>
+            <input id="incident_date" name="incident_date" type="date">
+        </div>
+        <div class="two-columns">
+            <div>
+                <label for="location">Location</label>
+                <input
+                    id="location"
+                    name="location"
+                    list="location-options"
+                    placeholder="Search or enter a location"
+                    autocomplete="off">
+            <datalist id="location-options">
+                <option value="Αμπελόκηποι">
+                <option value="Eξάρχεια">
+                <option value="Γκάζι">
+                <option value="Κολωνάκι">
+                <option value="Κουκάκι">
+                <option value="Kυψέλη">
+                <option value="Μεταξουργείο">
+                <option value="Μοναστηράκι">
+                <option value="Νέος Κόσμος">
+                <option value="Ομόνοια">
+                <option value="Παγκράτι">
+                <option value="Πατήσια">
+                <option value="Πετράλωνα">
+                <option value="Σύνταγμα">
+                <option value="Θησείο">
+            </datalist>
             </div>
 
-            <div class="field">
-                <label for="incident_date">Incident date</label>
-                <input id="incident_date" name="incident_date" type="date">
+            <div>
+                <label for="tax_code">Postcode</label>
+                <input id="tax_code" name="tax_code">
             </div>
-            <div class="two-columns">
-                <div>
-                    <label for="location">Location</label>
-                    <input
-                        id="location"
-                        name="location"
-                        list="location-options"
-                        placeholder="Search or enter a location"
-                        autocomplete="off">
-                <datalist id="location-options">
-                    <option value="Αμπελόκηποι">
-                    <option value="Eξάρχεια">
-                    <option value="Γκάζι">
-                    <option value="Κολωνάκι">
-                    <option value="Κουκάκι">
-                    <option value="Kυψέλη">
-                    <option value="Μεταξουργείο">
-                    <option value="Μοναστηράκι">
-                    <option value="Νέος Κόσμος">
-                    <option value="Ομόνοια">
-                    <option value="Παγκράτι">
-                    <option value="Πατήσια">
-                    <option value="Πετράλωνα">
-                    <option value="Σύνταγμα">
-                    <option value="Θησείο">
-                </datalist>
-                </div>
+        </div>
+        <div class="two-columns">
+            <div>
+                <label for="address">Address</label>
+                <input type="text" id="address">
+            </div>
 
-                <div>
-                    <label for="tax_code">Postcode</label>
-                    <input id="tax_code" name="tax_code">
-                </div>
+            <div>
+                <label for="number">Number</label>
+                <input type="text" id="number">
             </div>
-            <div class="two-columns">
-                <div>
-                    <label for="address">Address</label>
-                    <input type="text" id="address">
-                </div>
-
-                <div>
-                    <label for="number">Number</label>
-                    <input type="text" id="number">
-                </div>
-            </div>
-            <div class="button-container">
-                <button id="submitButton">Save Incident</button>
-            </div>
-            <p id="status" role="status" aria-live="polite"></p>
+        </div>
+        <div class="button-container">
+            <button id="submitButton">Save Incident</button>
+        </div>
+        <p id="status" role="status" aria-live="polite"></p>
         </form>
         <div class="footer-note">
             Community incident reporting platform
