@@ -46,7 +46,23 @@ body {
 .form-group {
     margin-bottom: 20px;
 }
+.two-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+}
 
+.two-columns label {
+    display: block;
+    margin-bottom: 6px;
+}
+
+@media (max-width: 768px) {
+    .two-columns {
+        grid-template-columns: 1fr;
+    }
+}
 label {
     display: block;
     font-weight: 600;
@@ -100,10 +116,17 @@ button:hover {
     );
 }
 
-
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
 #submitButton {
+    width: auto;
+    display: flex;
+    justify-content: flex-end;
     background: #5b21b6;
-    padding: 16px;
+    /*padding: 16px;*/
     margin-top: 20px;  /* space above */
 }
 
@@ -165,4 +188,34 @@ button:hover {
     border-radius: 12px;
     border: 1px solid #ddd;
     margin-top: 10px;
+}
+.success-popup {
+    position: fixed;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background: #6cf19d;
+    color: rgb(255, 255, 255);
+
+    padding: 20px 32px;
+    border-radius: 12px;
+
+    font-size: 1.1rem;
+    font-weight: 600;
+
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: all 0.3s ease;
+
+    z-index: 1000;
+}
+
+.success-popup.show {
+    opacity: 1;
+    visibility: visible;
 }

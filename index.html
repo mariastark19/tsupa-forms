@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tsapachules to Map the City</title>
+    <title>Violence Report in Athens</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css"/>
@@ -21,7 +21,7 @@
         <div class="info-box">
             Reports are collected for mapping and analysis.
             Personal information is not required.
-    </div>
+        </div>
     <main>
         <!-- <h1>Incident Form</h1> -->
         <form id="incidentForm">
@@ -53,16 +53,15 @@
                 <label for="incident_date">Incident date</label>
                 <input id="incident_date" name="incident_date" type="date">
             </div>
-
-            <div class="field">
-                <label for="location">Location</label>
-                <input
-                id="location"
-                name="location"
-                list="location-options"
-                placeholder="Search or enter a location"
-                autocomplete="off"
-                >
+            <div class="two-columns">
+                <div>
+                    <label for="location">Location</label>
+                    <input
+                        id="location"
+                        name="location"
+                        list="location-options"
+                        placeholder="Search or enter a location"
+                        autocomplete="off">
                 <datalist id="location-options">
                     <option value="Αμπελόκηποι">
                     <option value="Eξάρχεια">
@@ -80,24 +79,27 @@
                     <option value="Σύνταγμα">
                     <option value="Θησείο">
                 </datalist>
-            </div>
+                </div>
 
-            <div class="field">
-                <label for="address">Address</label>
-                <input id="address" name="address">
+                <div>
+                    <label for="tax_code">Postcode</label>
+                    <input id="tax_code" name="tax_code">
+                </div>
             </div>
+            <div class="two-columns">
+                <div>
+                    <label for="address">Address</label>
+                    <input type="text" id="address">
+                </div>
 
-            <div class="field">
-                <label for="number">Number</label>
-                <input id="number" name="number">
+                <div>
+                    <label for="number">Number</label>
+                    <input type="text" id="number">
+                </div>
             </div>
-
-            <div class="field">
-                <label for="tax_code">Postcode</label>
-                <input id="tax_code" name="tax_code">
+            <div class="button-container">
+                <button id="submitButton">Save Incident</button>
             </div>
-
-            <button id="submitButton" type="submit">Save Incident</button>
             <p id="status" role="status" aria-live="polite"></p>
         </form>
         <div class="footer-note">
@@ -139,7 +141,12 @@
                     throw new Error(`Supabase returned ${response.status}: ${details}`);
                 }
 
-                status.textContent = "Incident saved!";
+                status.textContent = "";
+                const popup = document.getElementById("successMessage");
+                popup.classList.add("show");
+                setTimeout(() => {
+                    popup.classList.remove("show");
+                }, 3000);
                 form.reset();
                 clearIncidentLocation();
             } catch (error) {
@@ -155,5 +162,9 @@
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <script src="script.js"></script>
+    <div 
+        id="successMessage" 
+        class="success-popup">Incident saved successfully
+    </div>
 </body>
 </html>
