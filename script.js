@@ -171,3 +171,65 @@ function initializeMap() {
 }
 
 window.addEventListener("load", initializeMap);
+
+async function updateMapFromFields() {
+
+    const location = document.getElementById("location").value.trim();
+    const address = document.getElementById("address").value.trim();
+    const number = document.getElementById("number").value.trim();
+    const postcode = document.getElementById("tax_code").value.trim();
+
+    if (!location && !address) {
+        return;
+    }
+
+    const query =
+        `${address} ${number}, ${location}, ${postcode}, Greece`;
+
+    try {
+
+        const response = await fetch(
+            `https://nominatim.openstreetmap.org/search?format=jsonv2&q=${encodeURIComponent(query)}`
+        );
+
+        if (!response.ok) {
+            return;
+        }
+
+        const results = await response.json();
+
+        if (!results.length) {
+            return;
+        }
+
+        const latlng = {
+            lat: parseFloat(results[0].lat),
+            lng: parseFloat(results[0].lon)
+        };
+
+        setIncidentLocation(latlng);
+
+        map.setView(latlng, 18);
+
+    } catch (error) {
+        console.error("Could not update map:", error);
+    }
+}
+
+window.addEventListener("load", initializeMap);
+
+window.addEventListener("load", () => {
+
+    document.getElementById("location")
+        .addEventListener("change", updateMapFromFields);
+
+    document.getElementById("address")
+        .addEventListener("change", updateMapFromFields);
+
+    document.getElementById("number")
+        .addEventListener("change", updateMapFromFields);
+
+    document.getElementById("tax_code")
+        .addEventListener("change", updateMapFromFields);
+
+});
