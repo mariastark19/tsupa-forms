@@ -6,20 +6,39 @@ const status = document.getElementById("status");
 
 form.addEventListener("submit", async (event) => {
     event.preventDefault();
-    submitButton.disabled = true;
-    //status.textContent = "Saving...";
 
     const formData = new FormData(form);
     const payload = Object.fromEntries(formData.entries());
 
-    if (!payload.incident_summary || payload.incident_summary.trim() === "") {
-        status.textContent = "Please describe what happened before submitting.";
-        submitButton.disabled = false;
+    const latitude = payload.latitude.trim();
+    const longitude = payload.longitude.trim();
+    if (
+        latitude === "" ||
+        longitude === "" ||
+        !Number.isFinite(Number(latitude)) ||
+        !Number.isFinite(Number(longitude)) ||
+        Number(latitude) < -90 ||
+        Number(latitude) > 90 ||
+        Number(longitude) < -180 ||
+        Number(longitude) > 180
+    ) {
+        status.textContent = "Please select a location on the map before submitting.";
+        const mapSection = document.querySelector(".map-section");
+        mapSection.classList.add("location-required");
+        const mapStatus = document.getElementById("mapStatus");
+        mapStatus.classList.add("is-error");
+        mapStatus.textContent = "Select a location on the map to continue.";
+        document.getElementById("map").scrollIntoView({ behavior: "smooth", block: "center" });
+        document.getElementById("map").focus({ preventScroll: true });
         return;
     }
+
+    if (!payload.incident_summary || payload.incident_summary.trim() === "") {
+        status.textContent = "Please describe what happened before submitting.";
+        return;
+    }
+    submitButton.disabled = true;
     console.log(payload);
-    payload.latitude = payload.latitude || null;
-    payload.longitude = payload.longitude || null;
     if (payload.incident_date === "") {payload.incident_date = null;}
 
     try {
@@ -53,6 +72,8 @@ form.addEventListener("submit", async (event) => {
             ? `Could not save incident: ${error.message}`
             : "Could not save incident. Check the browser console for details.";
     } finally {
-        submitButton.disabled = false;
+        submitButton.disabled =
+            document.getElementById("latitude").value === "" ||
+            document.getElementById("longitude").value === "";
     }
 });

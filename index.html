@@ -13,6 +13,11 @@
 
     <div class="card">
 
+        <img class="mascot-accent mascot-accent--top-left" src="assets/cyber-cat-logo.png" alt="" aria-hidden="true">
+        <img class="mascot-accent mascot-accent--top-right" src="assets/cyber-cat-logo.png" alt="" aria-hidden="true">
+        <img class="mascot-accent mascot-accent--bottom-left" src="assets/cyber-cat-logo.png" alt="" aria-hidden="true">
+        <img class="mascot-accent mascot-accent--bottom-right" src="assets/cyber-cat-logo.png" alt="" aria-hidden="true">
+
         <div class="logo">
             <h1>tsapachules mapping the city</h1>
             <p>Report incidents safely and anonymously</p>
@@ -22,30 +27,31 @@
             <!-- <h1>Incident Form</h1> -->
             <section class="map-section" aria-labelledby="map-label">
 
-        <div class="location-header">
-            <label id="map-label">Select Incident Location</label>
+                <div class="location-header">
+                    <label id="map-label">Where did it happen?</label>
+                    <span class="required-badge">Required</span>
 
-            <div class="info-tooltip">
-                ℹ️
-                <span class="tooltip-text">
-                    Search for a place or click the map to set the incident location.
-                </span>
-            </div>
-        </div>
+                    <div class="info-tooltip">
+                        ℹ️
+                        <span class="tooltip-text">
+                            Click the map to drop a pin, or search for a place. Approximate locations are OK.
+                        </span>
+                    </div>
+                </div>
 
-        <div id="map"></div>
+                <p class="map-instructions">Search or choose an area for an approximate pin; click the map to refine it.</p>
+                <div id="quickLocations" class="map-quick-picks" role="group" aria-label="Popular central Athens areas"></div>
 
-        <p id="mapStatus" role="status" aria-live="polite"></p>
+                <div id="map" aria-label="Incident location map"></div>
 
-        <button class="location-button" type="button" onclick="getLocation()">
-            📍 Use Current Location
-        </button>
+                <p id="mapStatus" role="status" aria-live="polite"></p>
 
         </section>
 
         <input type="hidden" id="latitude" name="latitude">
         <input type="hidden" id="longitude" name="longitude">
 
+        <section id="reportFields" class="report-fields" aria-label="Incident details" hidden>
         <div class="field">
             <label for="incident_summary">What happened?</label>
             <textarea
@@ -53,6 +59,8 @@
                 name="incident_summary"
                 rows="5"
                 required
+                data-requires-map-pin
+                disabled
                 placeholder="Provide a brief description of the incident..."
             ></textarea>
             <!--<input id="incident_summary" name="incident_summary">> -->
@@ -60,7 +68,7 @@
 
         <div class="field">
             <label for="incident_date">Incident date</label>
-            <input id="incident_date" name="incident_date" type="date">
+            <input id="incident_date" name="incident_date" type="date" data-requires-map-pin disabled>
         </div>
         <div class="two-columns">
             <div>
@@ -70,14 +78,16 @@
                     name="location"
                     list="location-options"
                     placeholder="Search or enter a location"
-                    autocomplete="off">
+                    autocomplete="off"
+                    data-requires-map-pin
+                    disabled>
             <datalist id="location-options">
                 <option value="Αμπελόκηποι">
-                <option value="Eξάρχεια">
+                <option value="Εξάρχεια">
                 <option value="Γκάζι">
                 <option value="Κολωνάκι">
                 <option value="Κουκάκι">
-                <option value="Kυψέλη">
+                <option value="Κυψέλη">
                 <option value="Μεταξουργείο">
                 <option value="Μοναστηράκι">
                 <option value="Νέος Κόσμος">
@@ -92,24 +102,25 @@
 
             <div>
                 <label for="tax_code">Postcode</label>
-                <input id="tax_code" name="tax_code">
+                <input id="tax_code" name="tax_code" data-requires-map-pin disabled>
             </div>
         </div>
         <div class="two-columns">
             <div>
                 <label for="address">Address</label>
-                <input type="text" id="address" name="address">
+                <input type="text" id="address" name="address" data-requires-map-pin disabled>
             </div>
 
             <div>
                 <label for="number">Number</label>
-                <input type="text" id="number" name="number">
+                <input type="text" id="number" name="number" data-requires-map-pin disabled>
             </div>
         </div>
         <div class="button-container">
-            <button id="submitButton" type="submit">Save Incident</button>
+            <button id="submitButton" type="submit" data-requires-map-pin disabled>Save Incident</button>
         </div>
         <p id="status" role="status" aria-live="polite"></p>
+        </section>
         </form>
         <div class="footer-note">
             Community incident reporting platform. Reports are collected for mapping and analysis. Personal information is not required.
