@@ -305,7 +305,21 @@ button:focus-visible,
 }
 
 .leaflet-control-geocoder-form input {
-    color: #171923;
+    background: #f5f7fb;
+    color: #10152b;
+    caret-color: #10152b;
+}
+
+.leaflet-control-geocoder-form input::placeholder {
+    color: #59627a;
+    opacity: 1;
+}
+
+.leaflet-control-geocoder-form input:focus {
+    border-color: var(--neon-blue);
+    background: #ffffff;
+    color: #10152b;
+    box-shadow: 0 0 0 2px rgba(55, 232, 255, 0.3);
 }
 
 .leaflet-bar a,

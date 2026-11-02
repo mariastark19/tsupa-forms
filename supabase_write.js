@@ -11,6 +11,12 @@ form.addEventListener("submit", async (event) => {
 
     const formData = new FormData(form);
     const payload = Object.fromEntries(formData.entries());
+
+    if (!payload.incident_summary || payload.incident_summary.trim() === "") {
+        status.textContent = "Please describe what happened before submitting.";
+        submitButton.disabled = false;
+        return;
+    }
     console.log(payload);
     payload.latitude = payload.latitude || null;
     payload.longitude = payload.longitude || null;
