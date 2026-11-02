@@ -7,10 +7,11 @@ const status = document.getElementById("status");
 form.addEventListener("submit", async (event) => {
     event.preventDefault();
     submitButton.disabled = true;
-    status.textContent = "Saving...";
+    //status.textContent = "Saving...";
 
     const formData = new FormData(form);
     const payload = Object.fromEntries(formData.entries());
+    console.log(payload);
     payload.latitude = payload.latitude || null;
     payload.longitude = payload.longitude || null;
     if (payload.incident_date === "") {payload.incident_date = null;}
