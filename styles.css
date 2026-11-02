@@ -224,6 +224,20 @@ label {
     margin-bottom: 12px;
 }
 
+.quick-locations-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    min-height: 36px;
+    border: 1px solid rgba(55, 232, 255, 0.62);
+    border-radius: 999px;
+    background: rgba(55, 232, 255, 0.1);
+    box-shadow: 0 0 12px rgba(55, 232, 255, 0.12);
+    color: #baf9ff;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
 .quick-location {
     width: auto;
     padding: 6px 11px;
@@ -547,11 +561,11 @@ button:focus-visible {
 
 @media (max-width: 768px) {
     body {
-        padding: 28px 16px;
+        padding: 20px 12px;
     }
 
     .card {
-        padding: 28px 22px;
+        padding: 26px 18px;
     }
 
     .map-section {
@@ -564,7 +578,65 @@ button:focus-visible {
     }
 
     #map {
-        height: 360px;
+        height: 340px;
+    }
+
+    .map-quick-picks:not(.is-expanded) .quick-location:nth-child(n + 4) {
+        display: none;
+    }
+
+    .quick-locations-toggle {
+        display: inline-flex;
+        width: auto;
+        margin: 8px 0 12px auto;
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+
+    .quick-locations-toggle:hover {
+        border-color: var(--neon-pink);
+        background: rgba(255, 60, 172, 0.14);
+        box-shadow: 0 0 14px rgba(255, 60, 172, 0.2);
+        color: #ffd2e9;
+    }
+}
+
+@media (max-width: 600px) {
+    .location-header label {
+        font-size: 0.95rem;
+    }
+
+    .required-badge {
+        padding: 3px 6px;
+        font-size: 0.62rem;
+    }
+
+    .map-instructions {
+        margin-bottom: 8px;
+        font-size: 0.82rem;
+        line-height: 1.35;
+    }
+
+    .map-quick-picks {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 6px;
+        margin-bottom: 0;
+    }
+
+    .quick-location {
+        min-height: 36px;
+        padding: 5px 3px;
+        font-size: 0.68rem;
+        white-space: nowrap;
+    }
+
+    .quick-locations-toggle {
+        font-size: 0.74rem;
+    }
+
+    #map {
+        height: 320px;
     }
 }
 
@@ -574,7 +646,7 @@ button:focus-visible {
     }
 
     .card {
-        padding: 26px 16px;
+        padding: 22px 14px;
         border-radius: 12px;
     }
 
@@ -615,6 +687,18 @@ button:focus-visible {
 
     #submitButton {
         width: 100%;
+    }
+
+    .logo h1 {
+        font-size: 1.65rem;
+    }
+
+    .map-section {
+        padding: 12px;
+    }
+
+    #map {
+        height: 300px;
     }
 }
 

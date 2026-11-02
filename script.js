@@ -12,7 +12,6 @@ const SEARCH_RADIUS_LAT = 0.015;
 const SEARCH_RADIUS_LNG = 0.015;
 const popularLocations = [
     { label: "Syntagma", location: "Σύνταγμα", lat: 37.9755, lng: 23.7348 },
-    { label: "Monastiraki", location: "Μοναστηράκι", lat: 37.9762, lng: 23.7257 },
     { label: "Omonia", location: "Ομόνοια", lat: 37.9842, lng: 23.7281 },
     { label: "Exarchia", location: "Εξάρχεια", lat: 37.9861, lng: 23.7378 },
     { label: "Metaxourgeio", location: "Μεταξουργείο", lat: 37.9856, lng: 23.7214 },
@@ -35,8 +34,6 @@ const popularLocations = [
     { label: "Petralona", location: "Πετράλωνα", lat: 37.9687, lng: 23.7088 },
 
     { label: "Kerameikos", location: "Κεραμεικός", lat: 37.9794, lng: 23.7165 },
-
-    { label: "Kolonaki", location: "Κολωνάκι", lat: 37.9792, lng: 23.7432 },
 
 ];
 
@@ -296,6 +293,16 @@ function initializeMap() {
             map.setView(latlng, 16);
         });
         quickLocations.append(button);
+    });
+
+    const quickLocationsToggle = document.getElementById("quickLocationsToggle");
+    quickLocationsToggle.textContent = `More areas (+${Math.max(0, popularLocations.length - 3)})`;
+    quickLocationsToggle.addEventListener("click", () => {
+        const expanded = quickLocations.classList.toggle("is-expanded");
+        quickLocationsToggle.setAttribute("aria-expanded", String(expanded));
+        quickLocationsToggle.textContent = expanded
+            ? "Show fewer areas"
+            : `More areas (+${Math.max(0, popularLocations.length - 3)})`;
     });
 }
 
